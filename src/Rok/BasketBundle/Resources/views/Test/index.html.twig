@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+
+ {% block body %}
+	{% for id in imena %}
+     Hello {{ id.id }}!
+	{% endfor %}
+ {% endblock %}

@@ -1,0 +1,7 @@
+parameters:
+#    rok_basket.example.class: Rok\BasketBundle\Example
+
+services:
+#    rok_basket.example:
+#        class: %rok_basket.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

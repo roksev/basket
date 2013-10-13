@@ -1,0 +1,7 @@
+rok_basket_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: RokBasketBundle:Default:index }
+
+test:
+    pattern:   /obiski/{id}
+    defaults: { _controller: RokBasketBundle:Test:index }
