@@ -3,11 +3,15 @@
 namespace Rok\BasketBundle\Controller;
 
 use Rok\BasketBundle\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+	Symfony\Component\HttpFoundation\Response,
+	Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class TestController extends Controller
 {
-
+	/**
+	 * @Template
+	 */
 	public function indexAction($id)
 	{
 
@@ -17,9 +21,8 @@ class TestController extends Controller
 		$query = $rep->findAllOrderedByName();
 
 
-	return $this->render('RokBasketBundle:Test:index.html.twig',
-		array('imena' => $query)
+	#return $this->render('RokBasketBundle:Test:index.html.twig',
+	return	array('imena' => $query#)
 	);	
-	#return new Response('<html><body>'.$query->getImePriim().'</body></html>');
 	}
 }
