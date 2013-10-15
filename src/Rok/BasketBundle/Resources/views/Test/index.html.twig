@@ -1,9 +1,51 @@
-{% extends "::base.html.twig" %}
+{% extends "RokBasketBundle::layout.html.twig" %}
 
 {% block title %} nov title {% endblock %}
 
- {% block body %}
-	{% for id in imena %}
-     Hello {{ id.id }}!
+{% block termini %}
+     {% for termin in termini %}
+        <li {% if date(termin.datum) < date('-1day') %}style="background-color: #E6E6E6;"{% endif %}>
+        <a href="{{ termin.id }}">{{ termin.datum|date('Y-m-d') }}</a></li>
+    {% endfor %}
+	
+{% endblock %}
+
+		
+{% block tekst %}
+	
+	<div>
+    <style scoped>
+		.pure-button{
+			background: rgb(66, 184, 221)
+		}
+        .pure-button-success,
+        .pure-button-error,
+        .pure-button-warning,
+        .pure-button-secondary {
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .pride {
+            background: rgb(28, 184, 65); /* this is a green */
+        }
+
+        .pure-button-error {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+        .nepride {
+            background: rgb(223, 117, 20); /* this is an orange */
+        }
+
+        .pure-button-secondary {
+            background: rgb(66, 184, 221); /* this is a light blue */
+        }
+
+    </style>
+    {% for pride in pridejo %}
+		<button class="pure-button {{ pride.status }}" >{{  pride.user.imePriim }}</button>
 	{% endfor %}
- {% endblock %}
+</div>
+{% endblock %} 

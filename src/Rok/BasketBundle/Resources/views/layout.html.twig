@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="wf-omnespro-n2-active wf-omnespro-n3-active wf-proximanova-n1-active wf-proximanova-n4-active wf-proximanova-n7-active wf-active yui3-js-enabled">
+<head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Basket{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+{% block head %}
+    <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
+    {% stylesheets '@RokBasketBundle/Resources/*.css' filter='cssrewrite' %} 
+    	 <link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
+
+    </head>
+    
+    <body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar pure-u">
+        <div class="pure-menu pure-menu-open">
+    <a class="pure-menu-heading">Termini</a>
+
+    <ul>
+    {% block termini %}{% endblock %}
+    </ul>
+</div>
+    </div>
+
+    <div class="pure-u-1">
+        <div class="content">
+                {% block tekst %}{% endblock %}
+            
+        </div>
+    </div>
+</div>
+	
+	
+    {% for flashMessage in app.session.flashbag.get('notice') %}
+        <div class="flash-message">
+            <em>Notice</em>: {{ flashMessage }}
+        </div>
+    {% endfor %}
+
+    
+</body>
+</html>

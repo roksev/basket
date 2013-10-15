@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ObiskTermina
  *
  * @ORM\Table(name="obisk_termina")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Rok\BasketBundle\Entity\ObiskTerminaRepository")
  */
 class ObiskTermina
 {
@@ -40,6 +40,14 @@ class ObiskTermina
      * })
      */
     private $termin;
+    
+    
+    /**
+     * 
+     * @var string
+     * @ORM\Column(name="status", type="string", length=20, nullable=true)
+     */
+    private $status;
 
 
 

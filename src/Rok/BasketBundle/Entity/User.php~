@@ -3,6 +3,8 @@
 namespace Rok\BasketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Rok\BasketBundle\Entity;
 
 /**
  * User
@@ -121,5 +123,48 @@ class User
     public function getActive()
     {
         return $this->active;
+    }
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Termin", mappedBy="user")
+     * @ORM\JoinTable(name="obisk_termina")
+     **/
+    private $termini;
+
+    public function __construct() {
+        $this->termini = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add termini
+     *
+     * @param \Rok\BasketBundle\Entity\Termin $termini
+     * @return User
+     */
+    public function addTermini(\Rok\BasketBundle\Entity\Termin $termini)
+    {
+        $this->termini[] = $termini;
+    
+        return $this;
+    }
+
+    /**
+     * Remove termini
+     *
+     * @param \Rok\BasketBundle\Entity\Termin $termini
+     */
+    public function removeTermini(\Rok\BasketBundle\Entity\Termin $termini)
+    {
+        $this->termini->removeElement($termini);
+    }
+
+    /**
+     * Get termini
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTermini()
+    {
+        return $this->termini;
     }
 }
