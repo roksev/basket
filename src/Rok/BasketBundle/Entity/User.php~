@@ -3,6 +3,7 @@
 namespace Rok\BasketBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Rok\BasketBundle\Entity;
 
@@ -12,7 +13,7 @@ use Rok\BasketBundle\Entity;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Rok\BasketBundle\Entity\UserRepository")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -37,6 +38,13 @@ class User
      */
     private $role;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=2000, nullable=false)
+     */
+    private $password;
+    
     /**
      * @var boolean
      *
@@ -133,6 +141,8 @@ class User
 
     public function __construct() {
         $this->termini = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
+        $this->salt = md5(uniqid(null, true));
     }
 
     /**
@@ -167,4 +177,65 @@ class User
     {
         return $this->termini;
     }
+    
+	/**
+	 * @see \Symfony\Component\Security\Core\User\UserInterface::getRoles()
+	 */
+	public function getRoles() {
+		return array('ROLE_USER');
+
+	}
+
+	/**
+	 * @see \Symfony\Component\Security\Core\User\UserInterface::getPassword()
+	 */
+	public function getPassword() {
+		return $this->password;
+
+	}
+
+	/**
+	 * @see \Symfony\Component\Security\Core\User\UserInterface::getSalt()
+	 */
+	public function getSalt() {
+		return $this->salt;
+
+	}
+
+	/**
+	 * @see \Symfony\Component\Security\Core\User\UserInterface::getUsername()
+	 */
+	public function getUsername() {
+		// TODO: Auto-generated method stub
+
+	}
+
+	/**
+	 * @see \Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()
+	 */
+	public function eraseCredentials() {
+		// TODO: Auto-generated method stub
+
+	}
+	
+	/**
+	 * @see \Serializable::serialize()
+	 */
+	public function serialize()
+	{
+		return serialize(array(
+				$this->id,
+		));
+	}
+	
+	/**
+	 * @see \Serializable::unserialize()
+	 */
+	public function unserialize($serialized)
+	{
+		list (
+				$this->id,
+		) = unserialize($serialized);
+	}
+
 }

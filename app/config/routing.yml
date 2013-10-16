@@ -2,3 +2,9 @@ rok_basket:
     resource: "@RokBasketBundle/Resources/config/routing.yml"
     prefix:   /
 
+_login:
+    pattern:  /login
+    defaults: { _controller: RokBasketBundle:Security:login }
+    
+_security_check:
+    pattern:  /login_check    

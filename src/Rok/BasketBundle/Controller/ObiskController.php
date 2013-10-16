@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 	Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
-class TestController extends Controller
+class ObiskController extends Controller
 {
 	private static function personSort( $a, $b ) {
 		return $a->getUser()->getImePriim() == $b->getUser()->getImePriim() ? 0 : ( $a->getUser()->getImePriim() > $b->getUser()->getImePriim() ) ? 1 : -1;
@@ -18,7 +18,7 @@ class TestController extends Controller
 	/**
 	 * @Template
 	 */
-	public function indexAction($id)
+	public function indexAction($id = 1)
 	{
 
 		$userRep = $this->getDoctrine()->getManager()->getRepository('RokBasketBundle:User');

@@ -1,6 +1,6 @@
 {% extends "RokBasketBundle::layout.html.twig" %}
 
-{% block title %} nov title {% endblock %}
+{% block title %} Pregled terminov {% endblock %}
 
 {% block termini %}
      {% for termin in termini %}
@@ -48,4 +48,12 @@
 		<button class="pure-button {{ pride.status }}" >{{  pride.user.imePriim }}</button>
 	{% endfor %}
 </div>
+<footer class="footer">
+<div class="pure-menu pure-menu-horizontal pure-menu-open">
+                    <ul>
+                        <li>{{ app.security.getToken().getUser().getUsername() }}</li>
+                    </ul>
+                </div>
+</footer>
+
 {% endblock %} 

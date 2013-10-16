@@ -106,4 +106,27 @@ class ObiskTermina
     {
         return $this->termin;
     }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return ObiskTermina
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

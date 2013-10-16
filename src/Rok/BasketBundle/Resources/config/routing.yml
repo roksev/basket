@@ -1,7 +1,11 @@
-rok_basket_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: RokBasketBundle:Default:index }
+homepage:
+    pattern:  /
+    defaults: { _controller: RokBasketBundle:Security:login }
 
-test:
+obiski:
     pattern:   /obiski/{id}
-    defaults: { _controller: RokBasketBundle:Test:index }
+    defaults: { _controller: RokBasketBundle:Obisk:index, id : 1 }
+    
+autologin:
+    pattern:  /autologin/{secret}
+    defaults: { _controller: RokBasketBundle:Security:autologin }

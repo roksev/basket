@@ -20,4 +20,12 @@ class UserRepository extends EntityRepository
             )
             ->getResult();
     }
+    
+    public function matchLoginKey($pass){
+    	return $this->getEntityManager()
+    	->createQuery(
+    			'SELECT p FROM RokBasketBundle:User p WHERE p.password = :pass'
+		)
+    	->setParameter('pass', $pass)->getSingleResult();
+    }
 }
