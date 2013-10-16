@@ -18,9 +18,18 @@ security:
         login:
             pattern:  ^/(login$|css|autologin)
             security: false
+            
+        dev:
+            pattern:  .*
+            security: true
+            anonymous: ~
+            form_login:
+                login_path: _login
+                check_path: _security_check
 
         secured_area:
             pattern:    ^/
+            security: true
             form_login:
                 login_path: _login
                 check_path: _security_check

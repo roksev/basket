@@ -198,7 +198,7 @@ class User implements UserInterface, \Serializable
 	 * @see \Symfony\Component\Security\Core\User\UserInterface::getSalt()
 	 */
 	public function getSalt() {
-		return $this->salt;
+		return null;//$this->salt;
 
 	}
 
@@ -206,8 +206,7 @@ class User implements UserInterface, \Serializable
 	 * @see \Symfony\Component\Security\Core\User\UserInterface::getUsername()
 	 */
 	public function getUsername() {
-		// TODO: Auto-generated method stub
-
+		return $this->imePriim;
 	}
 
 	/**
@@ -238,4 +237,17 @@ class User implements UserInterface, \Serializable
 		) = unserialize($serialized);
 	}
 
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    
+        return $this;
+    }
 }

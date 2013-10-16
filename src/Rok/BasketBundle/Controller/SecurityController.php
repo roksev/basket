@@ -53,6 +53,6 @@ class SecurityController extends Controller
 	
 		$router = $this->get('router');
 	
-		return new Response($result->getPassword());//$this->redirect($this->generateUrl('homepage'));
+		return $this->redirect($this->generateUrl('homepage'));
 	}
 }

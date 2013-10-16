@@ -1,6 +1,6 @@
 homepage:
     pattern:  /
-    defaults: { _controller: RokBasketBundle:Security:login }
+    defaults: { _controller: RokBasketBundle:Default:index }
 
 obiski:
     pattern:   /obiski/{id}
@@ -9,3 +9,7 @@ obiski:
 autologin:
     pattern:  /autologin/{secret}
     defaults: { _controller: RokBasketBundle:Security:autologin }
+    
+pridem:
+    pattern: /pridem
+    defaults: { _controller: RokBasketBundle:Obisk:pridem }

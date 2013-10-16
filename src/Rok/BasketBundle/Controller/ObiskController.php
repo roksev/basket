@@ -7,7 +7,9 @@ use Rok\BasketBundle\Entity\User,
 	Rok\BasketBundle\Entity\ObiskTermina;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
 	Symfony\Component\HttpFoundation\Response,
-	Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+	Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
+	Symfony\Component\HttpFoundation\Request;
+use Rok\BasketBundle\Entity\Pridem;
 
 
 class ObiskController extends Controller
@@ -32,17 +34,52 @@ class ObiskController extends Controller
 		
 		usort( $pridejo, array($this,'personSort'));
 		
-		//$pridejo = get_class($pridejo[0]->getUser());
+		$termin = new Pridem();
+		$termin->setTermin($id);
 		
+		$form = $this->createFormBuilder($termin)
+		->setAction($this->generateUrl('pridem'))
+		->add('termin', 'hidden')
+		//->add('Pridem', 'submit')
+		//->add('Nepridem', 'submit')
+		->getForm();
 		
-		return	array('termini' => $query, 'pridejo' => $pridejo );	
+		return	array('termini' => $query, 'pridejo' => $pridejo, 'form' => $form->createView() );	
 	}
 	
 	/**
 	 * @Template
 	 */
-	public function terminiAction()
+	public function pridemAction(Request $request)
 	{
+		$user = $this->getUser();
+		
+		$pridem = new Pridem();
+		$form = $this->createFormBuilder($pridem)
+		->add('termin', 'hidden')
+		->add('Pridem', 'submit')
+		->add('Nepridem', 'submit')
+		->getForm();
+	
+		$form->handleRequest($request);
+		
+		$em = $this->getDoctrine()->getManager();//TODO: preveri, ce spreminjamo pravi termin
+		$obisk = $em->getRepository('RokBasketBundle:ObiskTermina')
+			->getUserOnTermin($user->getId(),$pridem->getTermin());
+		
+		if (!$obisk){
+	        throw $this->createNotFoundException(
+	            'Termin za osebo'.$user->getImePriim().'ne obstaja'
+	        );
+	    }
+		
+	    if($form->get('Pridem')->isClicked())
+	    	$obisk->setStatus('pride');
+	    else $obisk->setStatus('nepride');
+	    $em->flush();	    
+	    
+		return $this->forward('RokBasketBundle:Obisk:index',array('id' => $pridem->getTermin()));
+	
 		
 	}
 	
