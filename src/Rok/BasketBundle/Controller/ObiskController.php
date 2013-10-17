@@ -41,14 +41,13 @@ class ObiskController extends Controller
 		}
 		else $status = false;
 		
-		$termin->setTermin($id);
+		$termin->setTermin($id);		
 		
 		
 		$form = $this->createFormBuilder($termin)
 		->setAction($this->generateUrl('pridem'))
 		->add('termin', 'hidden')
-		->add('pridem', 'hidden')
-		//->add('Nepridem', 'submit')
+		//->add('Pridem', 'submit')
 		->getForm();
 		
 		return	array('termini' => $query, 'pridejo' => $pridejo, 'form' => $form->createView() ,
@@ -60,6 +59,7 @@ class ObiskController extends Controller
 	 */
 	public function pridemAction(Request $request)
 	{
+		/*
 		$user = $this->getUser();
 		
 		$pridem = new Pridem();
@@ -77,16 +77,41 @@ class ObiskController extends Controller
 		
 		if (!$obisk){
 	        throw $this->createNotFoundException(
-	            'Termin za osebo'.$user->getImePriim().'ne obstaja'
+	            'Termin za osebo '.$user->getImePriim().' ne obstaja'
 	        );
 	    }
 		
 	    if($form->get('Pridem')->isClicked())
 	    	$obisk->setStatus('pride');
 	    else $obisk->setStatus('nepride');
-	    $em->flush();	    
+	    $em->flush();	   */
+		$user = $this->getUser();
+		
+		$pridem = new Pridem();
+		$form = $this->createFormBuilder($pridem)
+		->add('termin', 'hidden')
+		->add('Pridem', 'submit')
+		->add('Nepridem', 'submit')
+		->getForm();
+		
+		$form->handleRequest($request);
+		
+		$em = $this->getDoctrine()->getManager();//TODO: preveri, ce spreminjamo pravi termin
+		$obisk = $em->getRepository('RokBasketBundle:ObiskTermina')
+		->getUserOnTermin($user->getId(),$pridem->getTermin())[0];
+		
+		if (!$obisk){
+			throw $this->createNotFoundException(
+					'Termin za osebo'.$user->getImePriim().'ne obstaja'
+			);
+		}
+		
+		if($form->get('Pridem')->isClicked())
+			$obisk->setStatus('pride');
+		else $obisk->setStatus('nepride');
+		$em->flush();
 	    
-		return $this->forward('RokBasketBundle:Obisk:index',array('id' => $pridem->getTermin()));
+		return $this->redirect($this->generateUrl('obiski',array('id' => $pridem->getTermin())));
 	
 		
 	}
