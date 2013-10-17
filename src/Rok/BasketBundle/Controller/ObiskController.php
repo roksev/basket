@@ -20,7 +20,7 @@ class ObiskController extends Controller
 	/**
 	 * @Template
 	 */
-	public function indexAction($id = 1)
+	public function indexAction($id)
 	{
 
 		$userRep = $this->getDoctrine()->getManager()->getRepository('RokBasketBundle:User');
@@ -30,17 +30,23 @@ class ObiskController extends Controller
 		
 		$query = $terminRep->findAllTermins();
 		$pridejo = $obskTerminRep->getPeopleOnTerminId($id);
-		
-		
 		usort( $pridejo, array($this,'personSort'));
 		
+		$em = $this->getDoctrine()->getManager();//TODO: preveri, ce spreminjamo pravi termin
+		$obisk = $obskTerminRep->getUserOnTermin($this->getUser()->getId(),$id);
+
 		$termin = new Pridem();
+		if (!$obisk){
+			$termin->setPridem(false);
+		}
+		else $termin->setPridem(false);
 		$termin->setTermin($id);
+		
 		
 		$form = $this->createFormBuilder($termin)
 		->setAction($this->generateUrl('pridem'))
 		->add('termin', 'hidden')
-		//->add('Pridem', 'submit')
+		->add('pridem', 'hidden')
 		//->add('Nepridem', 'submit')
 		->getForm();
 		

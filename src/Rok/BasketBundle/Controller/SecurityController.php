@@ -41,7 +41,7 @@ class SecurityController extends Controller
 		$repository = $em->getRepository('RokBasketBundle:User');
 		$result = $repository->matchLoginKey($secret);
 		if (!$result) {
-			return $this->render('MiedzywodzieClientBundle:Default:autologin_incorrect.html.twig');
+			return $this->render('RokBasketBundle:Default:autologin_incorrect.html.twig');
 		}
 		//$result = $result[0];
 	
@@ -50,8 +50,6 @@ class SecurityController extends Controller
 		$request = $this->getRequest();
 		$session = $request->getSession();
 		$session->set('_security_secured_area',  serialize($token));
-	
-		$router = $this->get('router');
 	
 		return $this->redirect($this->generateUrl('homepage'));
 	}
