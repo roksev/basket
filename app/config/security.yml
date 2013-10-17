@@ -15,23 +15,23 @@ security:
         
 
     firewalls:
-        login:
-            pattern:  ^/(login$|css|autologin)
-            security: false
-            
         dev:
-            pattern:  ^/
-            security: true
-            form_login:
-                login_path: _login
-                check_path: _security_check
+          pattern:  ^/(_(profiler|wdt)|css|images|js)/
+          security: false
+          
+        login:
+            pattern:  ^/login$
+            security: false
 
         secured_area:
             pattern:    ^/
-            security: true
             form_login:
                 login_path: _login
                 check_path: _security_check
+            logout:
+                path:   /logout
+                target: /
+            switch_user: { role: ROLE_USER }
                 
         admin_area:
             pattern:    ^/admin

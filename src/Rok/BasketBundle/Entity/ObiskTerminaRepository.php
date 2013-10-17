@@ -25,7 +25,7 @@ class ObiskTerminaRepository extends EntityRepository
 		->createQuery(
 				'SELECT p FROM RokBasketBundle:ObiskTermina p WHERE p.termin =  :tid AND p.user = :uid'
 		)->setParameter('tid', $termId)->setParameter('uid', $userId)
-		->getSingleResult();
+		->getResult();
 	}
 }
 	

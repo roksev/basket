@@ -36,10 +36,11 @@ class ObiskController extends Controller
 		$obisk = $obskTerminRep->getUserOnTermin($this->getUser()->getId(),$id);
 
 		$termin = new Pridem();
-		if (!$obisk){
-			$termin->setPridem(false);
+		if ($obisk){
+			$status = true;
 		}
-		else $termin->setPridem(false);
+		else $status = false;
+		
 		$termin->setTermin($id);
 		
 		
@@ -50,7 +51,8 @@ class ObiskController extends Controller
 		//->add('Nepridem', 'submit')
 		->getForm();
 		
-		return	array('termini' => $query, 'pridejo' => $pridejo, 'form' => $form->createView() );	
+		return	array('termini' => $query, 'pridejo' => $pridejo, 'form' => $form->createView() ,
+				 'status' => $status );	
 	}
 	
 	/**

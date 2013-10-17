@@ -54,7 +54,7 @@
 		{{  pride.user.imePriim }}</div>
 	{% endfor %}
 </div>
-{% if  (date(termini[app.request.get('id')-1].datum) > date('-1day')) and form.pridem %}
+{% if  (date(termini[app.request.get('id')-1].datum) > date('-1day')) and status %}
 <div style="padding-top: inherit;">
 <header>Spremeni svoj prihod:</header>
 {{ form_start(form) }}
@@ -65,6 +65,11 @@
 {{ form_end(form) }}
 </div>
 {% endif %}
+
+<footer class="footer" style="margin-top: 5em;">
+<div class="pure-menu pure-menu-horizontal pure-menu-open">
+                    <ul>
+                    	<li>
 <div class="legenda"  style="margin-top: inherit; border: solid;">
 	<header>Legenda:</header>
 	<div class="pure-g">
@@ -72,10 +77,7 @@
         <div class="pure-u-1-4 okvir nepride">Ne prideš na basket</div>
         <div class="pure-u-1-4 okvir neodlocen">Se še nisem odločil</div>
     </div>
-</div>
-<footer class="footer" style="position: fixed;bottom: 5px;">
-<div class="pure-menu pure-menu-horizontal pure-menu-open">
-                    <ul>
+</div></li>
                         <li>Prijavljen kot {{ app.security.getToken().getUser().getUsername() }}</li>
                     </ul>
                 </div>

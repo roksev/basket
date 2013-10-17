@@ -148,12 +148,12 @@ class User implements UserInterface, \Serializable
     /**
      * Add termini
      *
-     * @param \Rok\BasketBundle\Entity\Termin $termini
+     * @param \Rok\BasketBundle\Entity\Termin $termin
      * @return User
      */
-    public function addTermini(\Rok\BasketBundle\Entity\Termin $termini)
+    public function addTermini(\Rok\BasketBundle\Entity\Termin $termin)
     {
-        $this->termini[] = $termini;
+        $this->termin[] = $termin;
     
         return $this;
     }
