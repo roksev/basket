@@ -53,4 +53,11 @@ class SecurityController extends Controller
 	
 		return $this->redirect($this->generateUrl('homepage'));
 	}
+	
+	public function edituserAction(){
+		
+		$user = $this->getUser();
+		
+		$form = $this->createFormBuilder($user);
+	}
 }

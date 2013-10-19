@@ -17,6 +17,9 @@ class ObiskController extends Controller
 	private static function personSort( $a, $b ) {
 		return $a->getUser()->getImePriim() == $b->getUser()->getImePriim() ? 0 : ( $a->getUser()->getImePriim() > $b->getUser()->getImePriim() ) ? 1 : -1;
 	}
+	private static function terminSort ( Termin $a, Termin $b ) {
+		return $a->getDatum() < $b->getDatum();
+	}
 	/**
 	 * @Template
 	 */
@@ -29,6 +32,7 @@ class ObiskController extends Controller
 		
 		
 		$query = $terminRep->findAllTermins();
+		usort($query, array($this,'terminSort'));
 		$pridejo = $obskTerminRep->getPeopleOnTerminId($id);
 		usort( $pridejo, array($this,'personSort'));
 		
@@ -59,32 +63,6 @@ class ObiskController extends Controller
 	 */
 	public function pridemAction(Request $request)
 	{
-		/*
-		$user = $this->getUser();
-		
-		$pridem = new Pridem();
-		$form = $this->createFormBuilder($pridem)
-		->add('termin', 'hidden')
-		->add('Pridem', 'submit')
-		->add('Nepridem', 'submit')
-		->getForm();
-	
-		$form->handleRequest($request);
-		
-		$em = $this->getDoctrine()->getManager();//TODO: preveri, ce spreminjamo pravi termin
-		$obisk = $em->getRepository('RokBasketBundle:ObiskTermina')
-			->getUserOnTermin($user->getId(),$pridem->getTermin());
-		
-		if (!$obisk){
-	        throw $this->createNotFoundException(
-	            'Termin za osebo '.$user->getImePriim().' ne obstaja'
-	        );
-	    }
-		
-	    if($form->get('Pridem')->isClicked())
-	    	$obisk->setStatus('pride');
-	    else $obisk->setStatus('nepride');
-	    $em->flush();	   */
 		$user = $this->getUser();
 		
 		$pridem = new Pridem();

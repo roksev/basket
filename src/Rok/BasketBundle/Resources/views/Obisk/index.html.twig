@@ -5,62 +5,27 @@
 {% block termini %}
      {% for termin in termini %}
         <li {% if date(termin.datum) < date('-1day') %}style="background-color: #E6E6E6;"{% endif %}>
-        <a href="{{ path('obiski', {'id':termin.id}) }}">{{ termin.datum|date('Y-m-d') }}</a></li>
+        <a href="{{ path('obiski', {'id':termin.id}) }}">{{ termin.datum|date('d.m.Y') }}</a></li>
     {% endfor %}
 	
 {% endblock %}
 
 		
 {% block tekst %}
-	
+	<h1 class="content-subhead">Izbran termin: {{ termini[app.request.get('id')-1].datum|date('d.m.y') }}</h1>
 	<div>
-    <style scoped>
-		.pure-button{
-			background: rgb(66, 184, 221)
-		}
-        .pure-button-success,
-        .pure-button-error,
-        .pure-button-warning,
-        .pure-button-secondary {
-            color: white;
-            border-radius: 4px;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-        }
-
-        .pride {
-            background: rgb(28, 184, 65); /* this is a green */
-        }
-
-        .pure-button-error {
-            background: rgb(202, 60, 60); /* this is a maroon */
-        }
-
-        .nepride {
-            background: rgb(223, 117, 20); /* this is an orange */
-        }
-
-        .neodlocen {
-            background: rgb(66, 184, 221); /* this is a light blue */
-        }
-        
-        .okvir {
-        	margin: 5px; 
-        	padding: 15px;
-        }
-
-    </style>
     {% for pride in pridejo %}
 		<div class="okvir pure-u-1-5 {{ pride.status != null ? pride.status : "neodlocen" }}" >
 		{{  pride.user.imePriim }}</div>
 	{% endfor %}
 </div>
-{% if  (date(termini[app.request.get('id')-1].datum) > date('-1day')) and status %}
+{% if  (date(termini[app.request.get('id')-1].datum) < date('-1day')) and status %}
 <div style="padding-top: inherit;">
-<header>Spremeni svoj prihod:</header>
+<h1 class="content-subhead">Spremeni svoj prihod:</h1>
 {{ form_start(form) }}
     {{ form_errors(form) }}
-    <button type="submit" id="form_Nepridem" name="form[Nepridem]" class="pure-button nepride">Nepridem</button>
-    <button type="submit" id="form_Pridem" name="form[Pridem]" class="pure-button pride">Pridem</button>
+    <button type="submit" id="form_Nepridem" name="form[Nepridem]" class="pure-button nepride" style="background: rgb(223, 117, 20);">Nepridem</button>
+    <button type="submit" id="form_Pridem" name="form[Pridem]" class="pride pure-button"  style="background: rgb(28, 184, 65);">Pridem</button>
     {{ form_row(form.termin) }}
 {{ form_end(form) }}
 </div>
@@ -71,7 +36,7 @@
                     <ul>
                     	<li>
 <div class="legenda"  style="margin-top: inherit; background-color: antiquewhite">
-	<header>Legenda:</header>
+	<h1 class="content-subhead">Legenda:</h1>
 	<div class="pure-g">
         <div class="pure-u-1-4 okvir pride" >Prideš na basket</div>
         <div class="pure-u-1-4 okvir nepride">Ne prideš na basket</div>

@@ -10,7 +10,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
     	if($this->getUser() != null)    	
-        	return $this->redirect($this->generateUrl('obiski'));
+        	return $this->redirect($this->generateUrl('obiski', array("id" => 3)));
     	else 
     		return $this->redirect($this->generateUrl('_login'));
     }
