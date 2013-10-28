@@ -30,11 +30,17 @@ class ObiskController extends Controller
 		$terminRep = $this->getDoctrine()->getManager()->getRepository('RokBasketBundle:Termin');
 		$obskTerminRep = $this->getDoctrine()->getManager()->getRepository('RokBasketBundle:ObiskTermina');
 		
-		
+
+		$statusTerminUser = $obskTerminRep->findBy(array('user' => $this->getUser()->getId()));
 		$query = $terminRep->findAllTermins();
+		for ($i=0;$i<count($query) & $i<count($statusTerminUser);$i++){
+			$query[$i]->status = $statusTerminUser[$i]->getStatus();
+		}
 		usort($query, array($this,'terminSort'));
 		$pridejo = $obskTerminRep->getPeopleOnTerminId($id);
 		usort( $pridejo, array($this,'personSort'));
+		
+		$izbranTermin = $terminRep->find($id);
 		
 		$em = $this->getDoctrine()->getManager();//TODO: preveri, ce spreminjamo pravi termin
 		$obisk = $obskTerminRep->getUserOnTermin($this->getUser()->getId(),$id);
@@ -55,7 +61,7 @@ class ObiskController extends Controller
 		->getForm();
 		
 		return	array('termini' => $query, 'pridejo' => $pridejo, 'form' => $form->createView() ,
-				 'status' => $status );	
+				 'status' => $status , 'izbranTermin' => $izbranTermin);	
 	}
 	
 	/**

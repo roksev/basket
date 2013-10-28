@@ -3,6 +3,7 @@
 namespace Rok\BasketBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Rok\BasketBundle\RokBasketBundle;
 
 /**
  * TerminRepository
@@ -27,5 +28,19 @@ class TerminRepository extends EntityRepository
                 'SELECT COUNT(p.id) FROM RokBasketBundle:Termin p'
             )
             ->getResult());
+    }
+    
+    public function getCurrentTermin(){
+    	$id = $this->getEntityManager()
+            ->createQuery(
+            		"SELECT p.id FROM RokBasketBundle:Termin p 
+            			WHERE p.datum >= CURRENT_DATE() and
+            		DATE_ADD(CURRENT_DATE(), 20, 'day') >= p.datum 
+            			ORDER BY p.datum asc"
+            		)->getResult();
+    	if ($id)
+    		return $id[0];
+    	else return 1;
+    	
     }
 }

@@ -4,22 +4,23 @@
 
 {% block termini %}
      {% for termin in termini %}
-        <li {% if date(termin.datum) < date('-1day') %}style="background-color: #E6E6E6;"{% endif %}>
-        <a href="{{ path('obiski', {'id':termin.id}) }}">{{ termin.datum|date('d.m.Y') }}</a></li>
+        <li {% if termin.id == izbranTermin.getId() %}style="background-color: #a6afa6;"{% endif %}
+         {% if date(termin.datum) < date('-1day') %}style="background-color: #E6E6E6;"{% endif %}>
+        <a href="{{ path('obiski', {'id':termin.id}) }}">{{ termin.datum|date('d.m.Y') }}</a>
+        <div class="termin-status {{ termin.status != null ? termin.status : "neodlocen" }}"></div></li>
     {% endfor %}
-	
 {% endblock %}
 
 		
 {% block tekst %}
-	<h1 class="content-subhead">Izbran termin: {{ termini[app.request.get('id')-1].datum|date('d.m.y') }}</h1>
+	<h1 class="content-subhead">Izbran termin: {{ izbranTermin.getDatum()|date('d.m.y') }}</h1>
 	<div>
     {% for pride in pridejo %}
 		<div class="okvir pure-u-1-5 {{ pride.status != null ? pride.status : "neodlocen" }}" >
 		{{  pride.user.imePriim }}</div>
 	{% endfor %}
 </div>
-{% if  (date(termini[app.request.get('id')-1].datum) < date('-1day')) and status %}
+{% if  (date(izbranTermin.getDatum()) > date('-1day')) and status %}
 <div style="padding-top: inherit;">
 <h1 class="content-subhead">Spremeni svoj prihod:</h1>
 {{ form_start(form) }}

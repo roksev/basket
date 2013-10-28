@@ -4,6 +4,13 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.termin-status{
+width: 5%;
+height: 100%;
+position: absolute;
+right: 0px;
+bottom: 0;
+}
 .pure-button{
 			background: rgb(66, 184, 221)
 }

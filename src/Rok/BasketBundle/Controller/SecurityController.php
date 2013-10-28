@@ -37,7 +37,7 @@ class SecurityController extends Controller
 	 * @ Route("/autologin/{secret}")
 	 */
 	public function autologinAction($secret) {
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$repository = $em->getRepository('RokBasketBundle:User');
 		$result = $repository->matchLoginKey($secret);
 		if (!$result) {
