@@ -1,0 +1,10 @@
+{% extends "RokBasketBundle::layout.html.twig" %}
+
+{% block tekst %}
+{{ form_start(form) }}
+	{{ form_row(form.username) }}
+{{ form_end(form) }}
+<div style="padding-top: 2em;">
+	{{ form(form1) }}
+	</div>
+{%  endblock tekst %}

@@ -13,3 +13,15 @@ autologin:
 pridem:
     pattern: /pridem
     defaults: { _controller: RokBasketBundle:Obisk:pridem }
+    
+viewuser:
+    pattern: /viewuser
+    defaults: { _controller: RokBasketBundle:Security:viewUser }
+    
+edituser:
+    pattern: /edituser
+    defaults: { _controller: RokBasketBundle:Security:edituser }
+    
+password:
+    pattern: /password
+    defaults: { _controller: RokBasketBundle:Security:password }

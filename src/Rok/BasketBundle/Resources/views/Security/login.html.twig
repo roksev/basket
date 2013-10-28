@@ -2,7 +2,7 @@
 
 {% block tekst %}
 {% if error %}
-    <div>{{ error.message }}</div>
+    <div style="top: 1em;">{{ error.message }}</div>
 {% endif %}
 
 <form class="pure-form" action="{{ path('_security_check') }}" method="post">
@@ -20,5 +20,5 @@
 
     <button type="submit" class="pure-button pure-button-primary">login</button>
 </form>
-<p>V primeru, da se ne moreš prijaviti piši na rok.sevcnikar@gmail.com</p>
+<p>V primeru, da se ne moreš prijaviti piši na admin@polzelabasket.org.uk</p>
 {%  endblock tekst %}

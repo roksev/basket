@@ -5,6 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext,
 	Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken,
 	Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\BrowserKit\Request;
 
 class SecurityController extends Controller
 {
@@ -55,9 +56,65 @@ class SecurityController extends Controller
 	}
 	
 	public function edituserAction(){
+		//return $this->redirect($this->generateUrl('viewuser'));
+		$request = $this->getRequest();
+		$em = $this->getDoctrine()->getManager();
+		$user = $em->getRepository('RokBasketBundle:User')->find($this->getUser()->getId());
 		
-		$user = $this->getUser();
 		
-		$form = $this->createFormBuilder($user);
+		$form = $this->createFormBuilder($user)
+		->add('username', 'text')
+		->add('Email', 'email')
+		->add('Password', 'password')
+		//->setAction($this->generateUrl('edituser'))
+		//->add('username', 'text')
+		//->add('Email', 'email')
+		//->add('Password', 'password')
+		->add('Potrdi', 'submit')
+		->add('Spremeni geslo', 'submit')
+		->getForm();
+		
+		$form->handleRequest($request);
+		
+		if($form->get('Spremeni geslo')->isClicked()){
+			$encoder = $this->get('security.encoder_factory')->getEncoder($user);
+			
+			$user->setPassword($encoder->encodePassword($user->getPassword(), $user->getSalt()));
+		}
+		
+		$em->flush();
+		
+		return $this->redirect($this->generateUrl('viewuser'));
 	}
+	
+	public function viewUserAction(){
+
+		$user = $this->getUser();
+		$em = $this->getDoctrine()->getManager();
+		$user = $em->getRepository('RokBasketBundle:User')->find($this->getUser()->getId());
+		
+		
+		$form = $this->createFormBuilder($user)
+		->setAction($this->generateUrl('edituser'))
+		->add('username', 'text')
+		->add('Email', 'email')
+		->add('Password', 'hidden')
+		->add('Potrdi', 'submit')
+		->getForm();
+		
+		$form1 = $this->createFormBuilder($user)
+		->setAction($this->generateUrl('edituser'))
+		->add('username', 'hidden')
+		->add('Email', 'hidden')
+		->add('Password', 'password')
+		->add('Spremeni geslo', 'submit')
+		->getForm();
+		
+		
+		return $this->render('RokBasketBundle:Security:viewUser.html.twig', array(
+				'form' => $form->createView(), 'form1' => $form1->createView(),
+		));
+	}
+	
+	
 }

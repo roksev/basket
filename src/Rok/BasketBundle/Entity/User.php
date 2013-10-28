@@ -24,6 +24,14 @@ class User implements UserInterface, \Serializable
      */
     private $id;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=30, nullable=false)
+     */
+    private $username;
+    
     /**
      * @var string
      *
@@ -44,6 +52,12 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string", length=2000, nullable=false)
      */
     private $password;
+    
+    /**
+     * @ORM\Column(name="email", unique=true, length=150)
+     */
+    
+    private $email;
     
     /**
      * @var boolean
@@ -206,7 +220,7 @@ class User implements UserInterface, \Serializable
 	 * @see \Symfony\Component\Security\Core\User\UserInterface::getUsername()
 	 */
 	public function getUsername() {
-		return $this->imePriim;
+		return $this->username;
 	}
 
 	/**
@@ -247,6 +261,42 @@ class User implements UserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
+    
+        return $this;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
     
         return $this;
     }
