@@ -1,10 +1,31 @@
 {% extends "RokBasketBundle::layout.html.twig" %}
-
+{% block skripte %}
+<script type="text/javascript">
+function swapPasswordBoxes(funcType) {
+	if(funcType == "click") {	
+		document.getElementById('passwordPlain').style.display = "none";
+		document.getElementById('form_Password').style.display = "inline";
+		document.getElementById('form_Password').focus();
+	} else {
+		if(document.getElementById('form_Password').value.length == 0) {
+			document.getElementById('passwordPlain').style.display = "inline";
+			document.getElementById('form_Password').style.display = "none";
+		}
+	}
+}
+</script>
+{% endblock skripte %}
 {% block tekst %}
 {{ form_start(form) }}
 	{{ form_row(form.username) }}
 {{ form_end(form) }}
 <div style="padding-top: 2em;">
-	{{ form(form1) }}
+	{{ form_start(form1) }}
+		<div><label for="form_Password" class="required">Password: </label>
+		{{ form_row(form1.Password) }}
+		<input type="password" id="form1_Password" name="form[Password]" required="required"
+		 onmouseover="document.getElementById('form1_Password').type='text'"
+		 onmouseout="document.getElementById('form1_Password').type='password'"></div>
+	{{ form_end(form1) }}
 	</div>
 {%  endblock tekst %}

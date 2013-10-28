@@ -97,7 +97,7 @@ class SecurityController extends Controller
 		$form = $this->createFormBuilder($user)
 		->setAction($this->generateUrl('edituser'))
 		->add('username', 'text')
-		->add('Email', 'email')
+		->add('Email', 'email', array('required' => false))
 		->add('Password', 'hidden')
 		->add('Potrdi', 'submit')
 		->getForm();
@@ -106,7 +106,7 @@ class SecurityController extends Controller
 		->setAction($this->generateUrl('edituser'))
 		->add('username', 'hidden')
 		->add('Email', 'hidden')
-		->add('Password', 'password')
+		->add('Password', 'hidden')
 		->add('Spremeni geslo', 'submit')
 		->getForm();
 		
