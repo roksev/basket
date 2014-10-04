@@ -36,7 +36,7 @@ class ObiskController extends Controller
 		for ($i=0;$i<count($query) & $i<count($statusTerminUser);$i++){
 			$query[$i]->status = $statusTerminUser[$i]->getStatus();
 		}
-		usort($query, array($this,'terminSort'));
+		//usort($query, array($this,'terminSort'));
 		$pridejo = $obskTerminRep->getPeopleOnTerminId($id);
 		usort( $pridejo, array($this,'personSort'));
 		

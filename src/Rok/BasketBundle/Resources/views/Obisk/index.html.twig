@@ -13,11 +13,11 @@
 
 		
 {% block tekst %}
-	<h1 class="content-subhead">Izbran termin: {{ izbranTermin.getDatum()|date('d.m.y') }}</h1>
+	<h1 class="content-subhead">{{ izbranTermin.getDatum()|date('d.m.y') }}</h1>
 	<div>
     {% for pride in pridejo %}
 		<div class="okvir pure-u-1-5 {{ pride.status != null ? pride.status : "neodlocen" }}" >
-		{{  pride.user.imePriim }}</div>
+		{{  pride.user.username }}</div>
 	{% endfor %}
 </div>
 {% if  (date(izbranTermin.getDatum()) > date('-1day')) and status %}
@@ -31,22 +31,4 @@
 {{ form_end(form) }}
 </div>
 {% endif %}
-
-<footer class="footer" style="margin-top: 5em;">
-<div class="pure-menu pure-menu-horizontal pure-menu-open">
-                    <ul>
-                    	<li>
-<div class="legenda"  style="margin-top: inherit; background-color: antiquewhite">
-	<h1 class="content-subhead">Legenda:</h1>
-	<div class="pure-g">
-        <div class="pure-u-1-4 okvir pride" >Prideš na basket</div>
-        <div class="pure-u-1-4 okvir nepride">Ne prideš na basket</div>
-        <div class="pure-u-1-4 okvir neodlocen">Se še nisem odločil</div>
-    </div>
-</div></li>
-                        <li>Prijavljen kot {{ app.security.getToken().getUser().getUsername() }}</li>
-                    </ul>
-                </div>
-</footer>
-
 {% endblock %} 

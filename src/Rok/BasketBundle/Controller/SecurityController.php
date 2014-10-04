@@ -70,7 +70,7 @@ class SecurityController extends Controller
 		//->add('username', 'text')
 		//->add('Email', 'email')
 		//->add('Password', 'password')
-		->add('Potrdi', 'submit')
+		->add('Spremeni', 'submit')
 		->add('Spremeni geslo', 'submit')
 		->getForm();
 		

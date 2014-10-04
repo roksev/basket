@@ -29,13 +29,13 @@ class TerminRepository extends EntityRepository
             )
             ->getResult());
     }
-    
+    //and
+            		//DATE_ADD(CURRENT_DATE(), 20, 'day') >= p.datum 
     public function getCurrentTermin(){
     	$id = $this->getEntityManager()
             ->createQuery(
             		"SELECT p.id FROM RokBasketBundle:Termin p 
-            			WHERE p.datum >= CURRENT_DATE() and
-            		DATE_ADD(CURRENT_DATE(), 20, 'day') >= p.datum 
+            			WHERE p.datum >= CURRENT_DATE() 
             			ORDER BY p.datum asc"
             		)->getResult();
     	if ($id)

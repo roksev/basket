@@ -6,7 +6,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 {% block head %}
     <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
-    {% stylesheets '@RokBasketBundle/Resources/*.css' filter='cssrewrite' %} 
+    {% stylesheets 'Resources/*.css' filter='cssrewrite' %} 
     	 <link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
 	{% block skripte %}{% endblock skripte %}
@@ -19,7 +19,7 @@
         <div class="pure-menu pure-menu-open pure-menu-horizontal"  style="top: 0; left: 25%; position: fixed;border-bottom: solid gray;">
     <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/viewuser">User</a></li>
+        <li><a href="/viewuser">User - {{ app.security.getToken().getUser().getUsername() }}</a></li>
     </ul>
 	</div> 
     </div>
